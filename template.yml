@@ -15,8 +15,8 @@ Globals:
       SecurityGroupIds:
         - !Sub '{{resolve:ssm:C:/Program Files/Git/poja-sary/sg/id}}'
       SubnetIds:
-        - !Sub '{{resolve:ssm:C:/Program Files/Git/poja-sary/subnet/private1/id}}'
-        - !Sub '{{resolve:ssm:C:/Program Files/Git/poja-sary/subnet/private2/id}}'
+        - !Sub '{{resolve:ssm:/poja-sary/subnet/private1/id}}'
+        - !Sub '{{resolve:ssm:/poja-sary/subnet/private2/id}}'
     Environment:
       Variables:
         ENV: !Ref Env
@@ -49,7 +49,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.poja.poja_sary_std22085.ApiEventHandler::handleRequest
-      MemorySize: 2048
+      MemorySize: 512
       Role: !Sub '{{resolve:ssm:/poja-sary-std22085/${Env}/execution/role-arn}}'
       FileSystemConfigs:
         - Arn: !Sub '{{resolve:ssm:/poja-sary-std22085/${Env}/efs/access-point/arn}}'
@@ -67,7 +67,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.poja.poja_sary_std22085.MailboxEventHandler::handleRequest
-      MemorySize: 1024
+      MemorySize: 512
       Role: !Sub '{{resolve:ssm:/poja-sary-std22085/${Env}/execution/role-arn}}'
       FileSystemConfigs:
         - Arn: !Sub '{{resolve:ssm:/poja-sary-std22085/${Env}/efs/access-point/arn}}'
